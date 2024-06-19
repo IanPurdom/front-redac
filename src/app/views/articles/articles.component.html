@@ -1,0 +1,28 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">Status</th>
+      <th scope="col"></th>
+			<th scope="col">Titre</th>
+			<th scope="col">Date de création</th>
+			<th scope="col">Nombre de commentaires</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for (article of articles; track article.title) {
+			<tr>
+				<th>{{article.status}}</th>
+				<td>
+					<img
+						[src]="article.image_url"
+						class="me-2"
+						style="width: 120px"
+					/>
+        </td>
+        <td [innerHTML]="article.title"></td>
+				<td>{{ article.created_at }}</td>
+				<td>{{ article.comments_count }}</td>
+			</tr>
+		}
+	</tbody>
+</table>
