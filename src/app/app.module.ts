@@ -7,13 +7,23 @@ import { HeaderComponent } from './views/header/header.component';
 import { ArticleCreateComponent } from './views/articles/article-create/article-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditorModule } from "@tinymce/tinymce-angular";
-import { HttpClientModule } from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './auth/auth.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { SignupComponent } from './auth/signup/signup.component';
+import { ManageComponent } from './views/manage/manage.component';
+import { ManageService } from './services/manage.service';
+import { ArticleService } from './services/article.service';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ArticleCreateComponent
+    ArticleCreateComponent,
+    AuthComponent,
+    LoadingSpinnerComponent,
+    SignupComponent, 
+    ManageComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +34,15 @@ import { HttpClientModule } from '@angular/common/http';
     EditorModule,
     HttpClientModule, 
   ],
-  providers: [],
+  providers: [
+    ManageService,
+    ArticleService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

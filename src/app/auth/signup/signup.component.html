@@ -1,0 +1,75 @@
+<div class="row">
+  <div *ngIf="formSent">
+    <p>Merci !</p> 
+    <br>
+    <p>Vous receverez un courriel une fois votre compte validé</p>
+    <p>Pensez à vérifier les spams</p>
+  </div>
+  <div *ngIf="!formSent" class="col-xs-12 col-md-6 col-md-offset-3">
+    <div class="alert alert-danger" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+    <div *ngIf="isLoading" style="text-align: center;">
+      <app-loading-spinner></app-loading-spinner>
+    </div>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+      <div class="form-group">
+        <label for="email">Courriel</label>
+        <input 
+               (change)="checkField('email')"
+               type="email" 
+               id="email" 
+               class="form-control"
+               ngModel
+               name="email"
+               required
+               email
+               formControlName="email"
+               >
+      </div>
+      <div #email [style.display]="'none'" class="fst-italic text-danger">Adresse non valide</div>
+      <div class="form-group">
+        <label for="role">Rôle</label>
+        <select 
+              type="role" 
+              id="role" 
+              class="form-control"
+              ngModel
+              name="role"
+              formControlName="role"
+              >
+          <option value="editor">Rédacteur</option>
+          <option value="assistant_editor">Rédacteur assistant</option>
+          <option value="moderator">Modérateur</option>
+          <option value="assistant_moderator">Modérateur assistant</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input (change)="checkField('password')"
+               type="password" 
+               id="password" 
+               class="form-control"
+               name="password"
+               formControlName="password">
+      </div>
+      <div #password [style.display]="'none'" class="fst-italic text-danger">8 caractères min, une majuscule, une minuscule, un chiffre et un caractère spécial</div>
+      <div class="form-group">
+        <label for="password_confirmation">Confirmation du mot de passe</label>
+        <input (change)="checkField('password_confirmation')"
+               type="password" 
+               id="password_confirmation" 
+               class="form-control"
+               formControlName="password_confirmation"
+               name="password_confirmation">
+      </div>
+      <div #password_confirmation [style.display]="'none'" class="fst-italic text-danger">Confirmation non identique au mot de passe</div>
+      <br>
+      <div>
+        <button class="btn btn-primary" type="submit" [disabled]="!signupForm.valid">Validation</button>
+      </div>
+      <br>
+      <p routerLink="/auth" class="text-primary"><a>Se connecter</a></p>
+    </form>
+  </div>
+</div>

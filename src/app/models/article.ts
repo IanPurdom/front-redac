@@ -6,6 +6,7 @@ export interface Article {
   title: string,
   subtitle: string,
   created_at: Date,
+  published_at: Date,
   source: string,
   tags: string[],
   comments_count: number,

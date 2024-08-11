@@ -13,26 +13,10 @@ export class ArticleService {
     private apiService: ApiService
   ) {}
 
-  public getHeadlineArticles(): Observable<any> {
-    return this.apiService.getHeadlineArticles().pipe(
-      map((res: Article[]) => {
-        return res;
-      })
-    )
-  }
-
-  public getArticles(tag?: string): Observable<Article[]> {
-    return this.apiService.getArticles(tag).pipe(
+  public getArticles(page?: number, status?: string): Observable<Article[]> {
+    return this.apiService.getArticles(page, status).pipe(
       map((res: Article[]) => {
         return res;
     }))
-  }
-
-  public getArticle(id: string): Observable<Article> {
-    return this.apiService.getArticle(id).pipe(
-      map((res: Article) => {
-        return res;
-      })
-    )
   }
 }
