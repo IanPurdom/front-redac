@@ -1,0 +1,21 @@
+<table class="table table-striped table-hover align-middle">
+	<thead>
+		<tr>
+			<th scope="col">Courriel</th>
+			<th scope="col">Rôle</th>
+			<th scope="col">Date de création</th>
+			<th scope="col"></th>
+		</tr>
+	</thead>
+	<tbody *ngFor="let user of users" class="table-group-divider">
+			<tr>
+				<th>{{ user.email }}</th>
+				<th>{{ user.role }}</th>
+				<td>{{ dateFormat(user.createdAt) }}</td>
+				<th>
+					<button *ngIf="user.status === 'active'" class="btn btn-danger" type="submit">Désactiver</button>
+					<button *ngIf="user.status === 'inactive'" class="btn btn-primary" type="submit">Activer</button>
+				</th>
+			</tr>
+	</tbody>
+</table>

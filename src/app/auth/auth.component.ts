@@ -33,7 +33,6 @@ export class AuthComponent {
         this.router.navigate(['/articles'])
       },
       errorMessage => {
-        console.log(errorMessage)
         this.error = errorMessage;
         this.isLoading = false;
       }

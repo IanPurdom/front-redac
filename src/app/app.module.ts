@@ -12,8 +12,8 @@ import { AuthComponent } from './auth/auth.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { SignupComponent } from './auth/signup/signup.component';
-import { ManageComponent } from './views/manage/manage.component';
-import { ManageService } from './services/manage.service';
+import { UsersComponent } from './views/users/users.component';
+import { userService } from './services/user.service';
 import { ArticleService } from './services/article.service';
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { ArticleService } from './services/article.service';
     AuthComponent,
     LoadingSpinnerComponent,
     SignupComponent, 
-    ManageComponent
+    UsersComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +35,7 @@ import { ArticleService } from './services/article.service';
     HttpClientModule, 
   ],
   providers: [
-    ManageService,
+    userService,
     ArticleService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -25,7 +25,9 @@ export class AuthService {
       
       if (sessionUser) {
         const user = new User(sessionUser.email, 
-                              sessionUser.role, 
+                              sessionUser.role,
+                              sessionUser.status,
+                              sessionUser.createdAt, 
                               sessionUser._token, 
                               sessionUser._tokenExpirationDate);
         this.user$.next(user);
@@ -63,7 +65,12 @@ export class AuthService {
     .pipe(
       catchError(this.handleError),
       tap((resData: AuthResponseData) => {
-      this.handleAuthentication(resData.email, resData.role, resData.authentication_token, resData.expires_in)
+      this.handleAuthentication(resData.email, 
+                                resData.role, 
+                                resData.status,
+                                resData.createdAt,
+                                resData.authenticationToken, 
+                                resData.expiresIn)
       })
     )
   }
@@ -71,12 +78,13 @@ export class AuthService {
   private handleAuthentication(
     email: string,
     role: string,
+    status: string,
+    createdAt: Date,
     token: string,
-    expires_in: number
+    expiresIn: number
   ) {
-    const expirationDate = new Date(new Date().getTime() + expires_in * 1000);
-    const user = new User(email, role, token, expirationDate);
-    console.log(user);
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(email, role, status, createdAt, token, expirationDate);
     this.user$.next(user);
   }
 

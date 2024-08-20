@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment.development';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,6 @@ export class ApiService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService
   ){}
 
   private httpOptions(): any {
@@ -40,7 +38,7 @@ export class ApiService {
   getUsers(): Observable<any> {
     return this.http.get<any>(`${this.apiBackoffice}/users`, this.httpOptions()).pipe(
       map((res: any) => {
-        return (res);
+        return (res.users);
       })
     )
   }

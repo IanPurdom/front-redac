@@ -1,6 +1,8 @@
 export interface AuthResponseData {
   email: string,
   role: string,
-  expires_in: number;
-  authentication_token: string;
+  status: string, 
+  createdAt: Date,
+  expiresIn: number;
+  authenticationToken: string;
 }
