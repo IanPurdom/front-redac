@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="card">
+      <div class="card-header">
+        <h3>Modifier</h3>
+        <div class="alert alert-danger" *ngIf="error">
+          <p>{{ error }}</p>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mt-2">
+              <input 
+                     (change)="checkField('email')"
+                     placeholder="Courriel"
+                     type="email" 
+                     id="email" 
+                     class="form-control"
+                     ngModel
+                     name="email"
+                     required
+                     email
+                     formControlName="email"
+                     >
+            </div>
+            <div [style.display]="'none'" class="fst-italic text-danger">Adresse non valide</div>
+            <div class="form-group mt-2">
+              <label for="role">Rôle</label>
+              <select 
+                    type="role" 
+                    id="role" 
+                    class="form-control"
+                    ngModel
+                    name="role"
+                    formControlName="role"
+                    >
+                <option value="editor">Rédacteur</option>
+                <option value="assistant_editor">Rédacteur assistant</option>
+                <option value="moderator">Modérateur</option>
+                <option value="assistant_moderator">Modérateur assistant</option>
+              </select>
+            </div>
+            <div class="form-group mt-2">
+              <label for="status">Statut</label>
+              <select 
+                    type="status" 
+                    id="status" 
+                    class="form-control"
+                    ngModel
+                    name="status"
+                    formControlName="status"
+                    >
+                <option value="active">Activé</option>
+                <option value="inactive">Désactivé</option>
+              </select>
+            </div>
+            <br>
+            <div>
+              <button class="btn" type="submit" [ngClass]="!signupForm.valid ? 'btn-secondary' : 'btn-primary'" [disabled]="!signupForm.valid">Validation</button>
+            </div>
+            <br>
+            <p routerLink="/users" class="text-primary"><a>Annuler</a></p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

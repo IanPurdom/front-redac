@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { UntypedFormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 

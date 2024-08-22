@@ -3,18 +3,20 @@
 		<tr>
 			<th scope="col">Courriel</th>
 			<th scope="col">Rôle</th>
+			<th scope="col">Statut</th>
 			<th scope="col">Date de création</th>
 			<th scope="col"></th>
 		</tr>
 	</thead>
 	<tbody *ngFor="let user of users" class="table-group-divider">
 			<tr>
-				<th>{{ user.email }}</th>
-				<th>{{ user.role }}</th>
-				<td>{{ dateFormat(user.createdAt) }}</td>
+				<th [routerLink]="[user.id, 'update']">{{ user.email }}</th>
+				<th [routerLink]="[user.id, 'update']">{{ translateRole(user.role) }}</th>
+				<th [routerLink]="[user.id, 'update']">{{ translateStatus(user.status) }}</th>
+				<td [routerLink]="[user.id, 'update']">{{ dateFormat(user.createdAt) }}</td>
 				<th>
-					<button *ngIf="user.status === 'active'" class="btn btn-danger" type="submit">Désactiver</button>
-					<button *ngIf="user.status === 'inactive'" class="btn btn-primary" type="submit">Activer</button>
+					<button (click)="toggleStatus(user)" *ngIf="user.status === 'active'" class="btn btn-danger">Désactiver</button>
+					<button (click)="toggleStatus(user)" *ngIf="user.status === 'inactive'" class="btn btn-primary">Activer</button>
 				</th>
 			</tr>
 	</tbody>

@@ -19,4 +19,20 @@ export class userService {
       })
     )
   }
+
+  getUser(id: string): Observable<User> {
+    return this.apiService.getUser(id).pipe(
+      map((res: User) => {
+        return res;
+      })
+    )
+  }
+
+  updateUser(user: User) : Observable<User> {
+    return this.apiService.updateUser(user).pipe(
+      map((res: User) => {
+        return res;
+      })
+    )
+  }
 }

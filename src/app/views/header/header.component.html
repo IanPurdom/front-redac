@@ -13,11 +13,14 @@
           <a routerLink="/articles"ngbDropdownItem>Liste</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Commentaires</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/account">Utilisateurs</a>
+      <li class="nav-item" ngbDropdown>
+        <div style="cursor: pointer;" class="nav-link dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>
+          Utilisateurs
+        </div>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <a routerLink="/users/new" ngbDropdownItem>Nouveau</a>
+          <a routerLink="/users" ngbDropdownItem>Liste</a>
+        </div>
       </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">

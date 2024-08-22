@@ -15,6 +15,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { UsersComponent } from './views/users/users.component';
 import { userService } from './services/user.service';
 import { ArticleService } from './services/article.service';
+import { UserUpdateComponent } from './views/users/user-update/user-update.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,8 @@ import { ArticleService } from './services/article.service';
     AuthComponent,
     LoadingSpinnerComponent,
     SignupComponent, 
-    UsersComponent
+    UsersComponent,
+    UserUpdateComponent
   ],
   imports: [
     BrowserModule,
