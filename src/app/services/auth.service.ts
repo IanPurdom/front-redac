@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.development";
 import { Observable, throwError, BehaviorSubject, ReplaySubject  } from "rxjs";
 import { AuthResponseData } from "../models/AuthResponseData";
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, map } from 'rxjs/operators';
 import { User } from "../models/user";
 import { SessionStorageService } from "./session-storage.service";
 
@@ -74,6 +74,14 @@ export class AuthService {
                                 resData.createdAt,
                                 resData.authenticationToken, 
                                 resData.expiresIn)
+      })
+    )
+  }
+
+  reset(email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiBackoffice}/users/reset`, { "backoffice_user": { "email": email }}).pipe(
+      map((res: any) => {
+        return res;
       })
     )
   }

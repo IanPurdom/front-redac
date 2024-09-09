@@ -1,0 +1,86 @@
+<form class="h-100 d-flex flex-column tiny-form" [formGroup]="articleForm">
+  <div class="d-flex justify-content-around">
+    <button class="btn btn-primary" mat-raised-button (click)="save()">
+      Enregistrer
+    </button>
+    <button class="btn btn-success" mat-raised-button (click)="publish()">
+      Soumettre
+    </button>
+    <button *ngIf="user?.role !== 'assistant_editor'" class="btn btn-secondary" mat-raised-button (click)="publish()">
+      Publier
+    </button>
+    <button class="btn btn-warning" mat-raised-button [disabled]="!article?.id">
+      Visualiser
+    </button>
+    <button *ngIf="['chef_editor', 'admin'].includes(user!.role)"class="btn btn-danger" mat-raised-button [disabled]="!article?.id">
+      Supprimer
+    </button>
+  </div>
+  <div>
+    <label for="">Titre:</label>
+    <input class="w-100 tiny-input tiny-title"
+  formControlName="title"
+    type="text"/>
+  </div>
+  <div>
+    <label for="">Sous-titre:</label>
+    <input class="w-100 tiny-input tiny-title"
+    formControlName="subtitle"
+    type="text"/>
+  </div>
+  <div>
+    <label for="">Chapeau:</label>
+    <textarea  formControlName="chapeau" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  <editor 
+    formControlName="text"
+    [init]="{   
+      base_url: '/tinymce', 
+      suffix: '.min',
+      height: '80vh',
+      plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist lists wordcount help charmap quickbars emoticons accordion',
+      menubar: 'file edit view insert format tools table help',
+      toolbar: 'save | undo redo | accordion accordionremove | blocks fontfamily fontsize | bold italic underline strikethrough | align numlist bullist | link image | table media | lineheight outdent indent| forecolor backcolor removeformat | charmap emoticons | code fullscreen preview | save print | pagebreak anchor codesample | ltr rtl',
+      font_family_formats: 'Arial=arial,helvetica,sans-serif; Courier New=courier new,courier,monospace; AkrutiKndPadmini=Akpdmi-n',
+      images_file_types: 'jpg,svg,webp'
+  }"
+  ></editor>
+  <br>
+  <div>
+    <label for="">Publicité:</label>
+    <input (keydown)="searchAds($event)" (click)="toggleDisplayAllAds()" class="w-100 tiny-input tiny-title" type="text">
+    <div [class.hidden]="!displayAdds" class="ads-list">
+      <div (click)="addAd(ad)" class="ad-list d-flex" *ngFor="let ad of allAds">
+        <img style="width:43px" [src]="ad.image_url" alt="">
+        <p>{{ad.title}}</p>
+      </div>  
+    </div>
+  </div>
+  <div *ngIf="article?.ads !== []">Publicités ajoutés:</div>
+  <div class="d-flex flex-wrap ads-box">
+    <div *ngFor="let ad of article?.ads" class="ad d-flex" >
+      <img class="image" [src]="ad.image_url" alt="">
+      <a [href]="ad.url" class="text">{{ad.title}}</a>
+      <div class="close" (click)="removeAd(ad)">X</div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <div class="d-flex justify-content-around">
+    <button class="btn btn-primary" mat-raised-button (click)="save()">
+      Enregistrer
+    </button>
+    <button class="btn btn-success" mat-raised-button (click)="publish()">
+      Soumettre
+    </button>
+    <button *ngIf="user?.status !== 'assistant_editor'" class="btn btn-secondary" mat-raised-button (click)="publish()">
+      Publier
+    </button>
+    <button class="btn btn-warning" mat-raised-button [disabled]="!article?.id">
+      Visualiser
+    </button>
+    <button *ngIf="user?.status === 'chef_editor'"class="btn btn-danger" mat-raised-button [disabled]="!article?.id">
+      Supprimer
+    </button>
+  </div>
+</form>

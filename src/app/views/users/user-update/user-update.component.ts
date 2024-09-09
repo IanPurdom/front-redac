@@ -31,7 +31,6 @@ export class UserUpdateComponent {
       this.route.params.subscribe((params) => {
         this.userService.getUser(params['id']).subscribe((res: User) => {
             this.user = res;
-            console.log(this.user);
             this.fillForm();
           })
       })

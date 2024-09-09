@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment.development';
 import { User } from '../models/user';
+import { Article } from '../models/article';
 
 @Injectable({
   providedIn: 'root'
@@ -36,10 +37,42 @@ export class ApiService {
     )
   }
 
+  getArticle(id: string): Observable<any> {
+    return this.http.get<any>(`${this.apiBackoffice}/articles/${id}`).pipe(
+      map((res: any) => {
+        return res;
+      })
+    )
+  }
+
+  createArticle(article: Article): Observable<any> {
+    return this.http.post<any>(`${this.apiBackoffice}/articles`, { article: article } ,this.httpOptions()).pipe(
+      map((res: any) => {
+        return res;
+      })
+    )
+  }
+
+  getAds(): Observable<any> {
+    return this.http.get<any>(`${this.apiBackoffice}/ads`, this.httpOptions()).pipe(
+      map((res: any) => {
+        return res.ads;
+      })
+    )
+  }
+
+  searchAds(search: string): Observable<any> {
+    return this.http.get<any>(`${this.apiBackoffice}/ads/search?search=${search}`, this.httpOptions()).pipe(
+      map((res: any) => {
+        return res.ads;
+      })
+    )
+  }
+
   getUsers(): Observable<any> {
     return this.http.get<any>(`${this.apiBackoffice}/users`, this.httpOptions()).pipe(
       map((res: any) => {
-        return (res.users);
+        return res.users;
       })
     )
   }
@@ -47,8 +80,7 @@ export class ApiService {
   getUser(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiBackoffice}/users/${id}`, this.httpOptions()).pipe(
       map((res: any) => {
-        console.log(res);
-        return (res);
+        return res;
       })
     )
   }

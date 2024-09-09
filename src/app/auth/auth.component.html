@@ -33,7 +33,7 @@
                       minlength="6">
             </div>
             <br>
-            <p class="text-secondary text-end"><a>Mot de passe oublié ?</a></p>
+            <p class="text-secondary text-end" routerLink="/reset"><a>Mot de passe oublié ?</a></p>
             <div>
               <button class="btn" type="submit" [ngClass]="!authForm.valid ? 'btn-secondary' : 'btn-primary'" [disabled]="!authForm.valid">Connexion</button>
             </div>

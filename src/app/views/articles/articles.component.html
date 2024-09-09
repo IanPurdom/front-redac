@@ -16,7 +16,7 @@
 	</thead>
 	<tbody class="table-group-divider">
 		@for (article of articles; track article.title) {
-			<tr>
+			<tr [routerLink]="[article.id]">
 				<th>{{statusTranslated(article.status)}}</th>
 				<td>
 					<img

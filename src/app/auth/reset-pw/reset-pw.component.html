@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="d-flex justify-content-center">
+    <div class="card">
+      <div class="card-header">
+        <h3>Réinitialiser le mot de passe</h3>
+        <div *ngIf="isSent">
+          <p>Un email vous a été envoyé</p>
+          <p>Vérifier dans les spams</p>
+        </div>
+        <div *ngIf="!isSent" class="card-body">
+          <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+            <div class="form-group mt-1">
+              <input type="email"
+                     placeholder="Adresse courriel"
+                      id="email" 
+                      class="form-control"
+                      ngModel
+                      name="email"
+                      required
+                      email
+                      >
+            </div>
+            <br>
+            <div>
+              <button class="btn" type="submit" [ngClass]="!authForm.valid ? 'btn-secondary' : 'btn-primary'" [disabled]="!authForm.valid">Connexion</button>
+            </div>
+            <br>
+            <p routerLink="/auth" class="text-primary"><a>Se connecter</a></p>
+          </form>
+        </div>
+      </div>
+    </div>  
+  </div>
+</div>

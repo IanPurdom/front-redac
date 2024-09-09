@@ -37,9 +37,10 @@ export class UsersComponent {
 
   translateRole(role: string): string {
     const roles: any = { "editor": "Rédacteur",
-                    "assistant_editor": "Rédacteur assistant",
-                    "moderator": "modérateur",
-                    "assistant_moderator": "modérateur assistant"}
+                          "chef_editor": "Rédacteur en chef",
+                          "assistant_editor": "Rédacteur assistant",
+                          "moderator": "modérateur",
+                          "assistant_moderator": "modérateur assistant"}
 
     return roles[role];
   }

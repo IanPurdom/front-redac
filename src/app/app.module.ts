@@ -16,16 +16,24 @@ import { UsersComponent } from './views/users/users.component';
 import { userService } from './services/user.service';
 import { ArticleService } from './services/article.service';
 import { UserUpdateComponent } from './views/users/user-update/user-update.component';
+import { ResetPwComponent } from './auth/reset-pw/reset-pw.component';
+import { ArticleShowComponent } from './views/articles/article-show/article-show.component';
+import { ArticlesComponent } from './views/articles/articles.component';
+import { TinyEditorComponent } from './shared/tiny-editor/tiny-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    ArticlesComponent,
     ArticleCreateComponent,
+    ArticleShowComponent,
     AuthComponent,
     LoadingSpinnerComponent,
     SignupComponent, 
     UsersComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    ResetPwComponent,
+    TinyEditorComponent
   ],
   imports: [
     BrowserModule,

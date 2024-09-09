@@ -32,16 +32,16 @@ export class ArticlesComponent {
     })
   }
 
-  dateFormat(datetime: Date) {
+  dateFormat(datetime?: Date) {
     return `Le ${moment(datetime).format('DD/MM/YYYY à HH:MM')}`
   }
 
-  statusTranslated(status: string): string {
+  statusTranslated(status?: string): string {
     const translation: any = {
       'published': 'Publié',
       'pending': 'En cours'
     }
 
-    return translation[status];
+    return translation[status!];
   }
 }
