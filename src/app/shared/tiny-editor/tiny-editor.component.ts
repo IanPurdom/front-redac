@@ -17,11 +17,13 @@ export class TinyEditorComponent {
   allAds?: any[];
   displayAdds: Boolean = false;
   articleForm: FormGroup;
+  allArticles?: Article[];
   article: Article = {title: "",
                       subtitle: "",
                       chapeau: "",
                       text: "",
-                      ads: []};
+                      ads: [],
+                      links: []};
   user?: User | null;
 
   constructor(
@@ -40,6 +42,10 @@ export class TinyEditorComponent {
       this.allAds = res;
     })
 
+    this.articleService.getArticles().subscribe((res: Article[]) => {
+      this.allArticles = res;
+    })
+
     this.articleService.article$.pipe(
       take(1)).subscribe((res: Article) => {
       this.article = res;
@@ -50,20 +56,21 @@ export class TinyEditorComponent {
 
     this.authService.user$.subscribe((res: User | null) => {
       this.user = res;
-      console.log(this.user)
     })
   }
 
   onChanges(): void {
     this.articleForm.valueChanges.subscribe(() => {
-      console.log(this.articleFromForm());
       this.articleService.article$.next(this.articleFromForm());
     });
   }
   
-  updateAds(ads: Ad[]) {
-    this.article!.ads = ads;
-    console.log(this.article.ads);
+  updateAds(foo: {type: string, items: any[]}) {
+    if(foo.type==='ad'){
+      this.article!.ads = foo.items;
+    }else{
+      this.article!.links = foo.items;
+    }
     this.articleService.article$.next(this.article!);
   }
   
@@ -91,7 +98,7 @@ export class TinyEditorComponent {
   }
   
   save() { 
-    this.article!.status = 'in_progress';
+    this.article!.status = 'draft';
     this.send();
   }
 
@@ -113,7 +120,6 @@ export class TinyEditorComponent {
   }
 
   formFromArticle() {
-    console.log(this.article);
     this.articleForm.get('title')?.setValue(this.article?.title);
     this.articleForm.get('subtitle')?.setValue(this.article?.subtitle);
     this.articleForm.get('chapeau')?.setValue(this.article?.chapeau);

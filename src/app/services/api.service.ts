@@ -61,8 +61,34 @@ export class ApiService {
     )
   }
 
+  searchItems(search: string, type: string): Observable<any> {
+    if(type==='ad') {
+      return this.searchAds(search).pipe(
+        map((res: any) => {
+          return res;
+        })
+      )
+    }else{
+      return this.searchArticles(search).pipe(
+        map((res: any) => {
+          console.log(res);
+          return res;
+        })
+      )
+    }
+  }
+
   searchAds(search: string): Observable<any> {
     return this.http.get<any>(`${this.apiBackoffice}/ads/search?search=${search}`, this.httpOptions()).pipe(
+      map((res: any) => {
+        return res.ads;
+      })
+    )
+  }
+
+  searchArticles(search: string): Observable<any> {
+    console.log(search)
+    return this.http.get<any>(`${this.apiBackoffice}/articles/search?search=${search}`, this.httpOptions()).pipe(
       map((res: any) => {
         return res.ads;
       })
@@ -76,6 +102,8 @@ export class ApiService {
       })
     )
   }
+
+
 
   getUser(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiBackoffice}/users/${id}`, this.httpOptions()).pipe(

@@ -9,34 +9,36 @@ import { Ad } from '../../models/ad';
 })
 export class SearchToolComponent {
   displayAdds: Boolean = false;
-  @Output() updateAdsEvent = new EventEmitter<Ad[]>();
-  @Input() allAds?: Ad[];
-  @Input() ads?: Ad[];
+  @Output() updateAdsEvent = new EventEmitter<{type: string, items: any[]}>();
+  @Input() allItems?: any[];
+  @Input() items?: any[];
+  @Input() type!: string; 
 
   constructor(
     private articleService: ArticleService
   ){}
 
-  addAd(ad: Ad) {
-    this.ads?.push(ad);
-    this.ads = [ ...new Set(this.ads) ];
+  addItem(ad: Ad) {
+    this.items?.push(ad);
+    this.items = [ ...new Set(this.items) ];
     this.displayAdds = false;
-    this.updateAdsEvent.emit(this.ads);
+    this.updateAdsEvent.emit({type: this.type, items: this.items});
   }
 
-  removeAd(ad: Ad) {
-    this.ads = this.ads!.filter((a) => a.id !== ad.id);
-    this.updateAdsEvent.emit(this.ads);
+  removeItem(ad: Ad) {
+    this.items = this.items!.filter((a) => a.id !== ad.id);
+    this.updateAdsEvent.emit({type: this.type, items: this.items});
   }
 
-  searchAds(event: Event) {
-    this.articleService.searchAds((event.target as HTMLInputElement).value).subscribe(
+  searchItems(event: Event) {
+    this.articleService.searchItems((event.target as HTMLInputElement).value, this.type).subscribe(
      (res: any[]) => {
-       this.allAds = res;
+      console.log(res);
+       this.allItems = res;
     })
    }
 
-   toggleDisplayAllAds() {
+   toggleDisplayAllItems() {
     if (!this.displayAdds){
       this.displayAdds = true;
     }else {

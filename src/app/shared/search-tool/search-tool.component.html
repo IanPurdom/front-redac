@@ -1,18 +1,19 @@
 <div>
-  <label for="">Publicité:</label>
-  <input (keydown)="searchAds($event)" (click)="toggleDisplayAllAds()" class="w-100 tiny-input tiny-title" type="text">
+  <label for="">{{type === 'ad' ? 'Publicités' : 'Liens articles'}}</label>
+  <input (keydown)="searchItems($event)" (click)="toggleDisplayAllItems()" class="w-100 tiny-input tiny-title" type="text">
   <div [class.hidden]="!displayAdds" class="ads-list">
-    <div (click)="addAd(ad)" class="ad-list d-flex" *ngFor="let ad of allAds">
-      <img style="width:43px" [src]="ad.image_url" alt="">
-      <p>{{ad.title}}</p>
+    <div (click)="addItem(item)" class="ad-list d-flex" *ngFor="let item of allItems">
+      <img style="width:43px" [src]="item.image_url" alt="">
+      <p [innerHTML]="item.title"></p>
     </div>  
   </div>
 </div>
-<div *ngIf="ads!.length > 0">Publicités ajoutés:</div>
+<br>
+<div *ngIf="items!.length > 0">{{type === 'ad' ? 'Publicités' : 'Liens articles'}} ajoutés:</div>
 <div class="d-flex flex-wrap ads-box">
-  <div *ngFor="let ad of ads" class="ad d-flex" >
-    <img class="image" [src]="ad.image_url" alt="">
-    <a [href]="ad.url" class="text">{{ad.title}}</a>
-    <div class="close" (click)="removeAd(ad)">X</div>
+  <div *ngFor="let item of items" class="ad d-flex" >
+    <img class="image" [src]="item.image_url" alt="">
+    <a [href]="item.url" class="text" [innerHTML]="item.title"></a>
+    <div class="close" (click)="removeItem(item)">X</div>
   </div>
 </div>
