@@ -20,6 +20,7 @@ import { ResetPwComponent } from './auth/reset-pw/reset-pw.component';
 import { ArticleShowComponent } from './views/articles/article-show/article-show.component';
 import { ArticlesComponent } from './views/articles/articles.component';
 import { TinyEditorComponent } from './shared/tiny-editor/tiny-editor.component';
+import { SearchToolComponent } from './shared/search-tool/search-tool.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,8 @@ import { TinyEditorComponent } from './shared/tiny-editor/tiny-editor.component'
     UsersComponent,
     UserUpdateComponent,
     ResetPwComponent,
-    TinyEditorComponent
+    TinyEditorComponent,
+    SearchToolComponent
   ],
   imports: [
     BrowserModule,

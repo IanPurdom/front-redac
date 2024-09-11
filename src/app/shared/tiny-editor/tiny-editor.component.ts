@@ -14,10 +14,14 @@ import { User } from '../../models/user';
   styleUrl: './tiny-editor.component.scss',
 })    
 export class TinyEditorComponent {
-  allAds?: Ad[];
+  allAds?: any[];
   displayAdds: Boolean = false;
   articleForm: FormGroup;
-  article?: Article;
+  article: Article = {title: "",
+                      subtitle: "",
+                      chapeau: "",
+                      text: "",
+                      ads: []};
   user?: User | null;
 
   constructor(
@@ -32,14 +36,14 @@ export class TinyEditorComponent {
       text: ['', [Validators.required, Validators.minLength(10)]]
     })
 
+    this.articleService.getAds().subscribe((res: Ad[]) => {
+      this.allAds = res;
+    })
+
     this.articleService.article$.pipe(
       take(1)).subscribe((res: Article) => {
       this.article = res;
       this.formFromArticle();
-    })
-
-    this.articleService.getAds().subscribe((res: Ad[]) => {
-      this.allAds = res;
     })
 
     this.onChanges()
@@ -56,34 +60,13 @@ export class TinyEditorComponent {
       this.articleService.article$.next(this.articleFromForm());
     });
   }
-
-  addAd(ad: Ad) {
-    this.article?.ads?.push(ad);
-    this.article!.ads = [ ...new Set(this.article?.ads) ];
-    this.article!.ads = this.article?.ads;
+  
+  updateAds(ads: Ad[]) {
+    this.article!.ads = ads;
+    console.log(this.article.ads);
     this.articleService.article$.next(this.article!);
-    this.displayAdds = false;
   }
-
-  removeAd(ad: Ad) {
-    this.article!.ads = this.article!.ads!.filter((a) => a.id !== ad.id)
-  }
-
-  searchAds(event: Event) {
-   this.articleService.searchAds((event.target as HTMLInputElement).value).subscribe(
-    (res: Ad[]) => {
-      this.allAds = res;
-   })
-  }
-
-  toggleDisplayAllAds() {
-    if (!this.displayAdds){
-      this.displayAdds = true;
-    }else {
-      this.displayAdds = false;
-    }
-
-  }
+  
   saveForSession() {
     this.article =  this.articleFromForm()
     this.articleService.article$.next(this.article)
