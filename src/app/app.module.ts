@@ -21,6 +21,7 @@ import { ArticleShowComponent } from './views/articles/article-show/article-show
 import { ArticlesComponent } from './views/articles/articles.component';
 import { TinyEditorComponent } from './shared/tiny-editor/tiny-editor.component';
 import { SearchToolComponent } from './shared/search-tool/search-tool.component';
+import { SearchListToolComponent } from './shared/search-list-tool/search-list-tool.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { SearchToolComponent } from './shared/search-tool/search-tool.component'
     UserUpdateComponent,
     ResetPwComponent,
     TinyEditorComponent,
-    SearchToolComponent
+    SearchToolComponent,
+    SearchListToolComponent
   ],
   imports: [
     BrowserModule,

@@ -56,9 +56,17 @@ export class ArticleService {
     )
   }
 
+  searchArticles(search: string, page: number, status?: string): Observable<Article[]> {
+    return this.apiService.searchArticles(search, page, status).pipe(
+      map((res: Article[]) => {
+        return res;
+      })
+    )
+  }
+
   searchItems(search: string, type: string): Observable<Ad[]> {
     return this.apiService.searchItems(search, type).pipe(
-      map((res: Ad[]) => {
+      map((res: any[]) => {
         return res;
       })
     )

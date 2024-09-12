@@ -12,7 +12,7 @@ import { map } from "rxjs";
 
 export class ArticlesComponent {
   public articles?: Article[];
-  public pageNumber: number = 1;
+  public page: number = 1;
   public status?: string;
   
   constructor(
@@ -25,21 +25,28 @@ export class ArticlesComponent {
     this.status = status;
     this.articleService.getArticles(page, this.status).subscribe({
       next: (res: Article[]) => {
-        this.pageNumber = page ? page : 1
+        this.page = page ? page : 1
         this.articles = res;
       },
       error: (err: Error) => console.log('error front articles:', err)
     })
   }
 
+  searchArticles(search: string){
+    this.page = 1;
+    this.articleService.searchArticles(search, this.page, this.status).subscribe((res: Article[]) => {
+      this.articles = res;
+    })
+  }
+
   dateFormat(datetime?: Date) {
-    return `Le ${moment(datetime).format('DD/MM/YYYY à HH:MM')}`
+    return `${moment(datetime).format('DD/MM/YYYY à HH:MM')}`
   }
 
   statusTranslated(status?: string): string {
     const translation: any = {
       'published': 'Publié',
-      'pending': 'En cours'
+      'draft': 'En cours'
     }
 
     return translation[status!];

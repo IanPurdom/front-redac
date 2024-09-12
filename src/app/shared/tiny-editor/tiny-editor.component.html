@@ -45,25 +45,6 @@
       images_file_types: 'jpg,svg,webp'
   }"
   ></editor>
-  <br>
-  <app-search-tool [type]="'ad'" [items]="article.ads" [allItems]="allAds" (updateAdsEvent)="updateAds($event)"></app-search-tool>
-  <app-search-tool [type]="'article'" [items]="article.links" [allItems]="allArticles" (updateAdsEvent)="updateAds($event)"></app-search-tool>
-  <br>
-  <div class="d-flex justify-content-around">
-    <button class="btn btn-primary" mat-raised-button (click)="save()">
-      Enregistrer
-    </button>
-    <button class="btn btn-success" mat-raised-button (click)="publish()">
-      Soumettre
-    </button>
-    <button *ngIf="user?.status !== 'assistant_editor'" class="btn btn-secondary" mat-raised-button (click)="publish()">
-      Publier
-    </button>
-    <button class="btn btn-warning" mat-raised-button [disabled]="!article?.id">
-      Visualiser
-    </button>
-    <button *ngIf="user?.status === 'chef_editor'"class="btn btn-danger" mat-raised-button [disabled]="!article?.id">
-      Supprimer
-    </button>
-  </div>
+  <app-search-tool [type]="'ad'" [items]="article.ads" [allItems]="allAds" (updateItemsEvent)="updateItems($event)"></app-search-tool>
+  <app-search-tool [type]="'article'" [items]="article.links" [allItems]="allArticles" (updateItemsEvent)="updateItems($event)"></app-search-tool>
 </form>

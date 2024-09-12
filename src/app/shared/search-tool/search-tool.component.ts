@@ -9,7 +9,7 @@ import { Ad } from '../../models/ad';
 })
 export class SearchToolComponent {
   displayAdds: Boolean = false;
-  @Output() updateAdsEvent = new EventEmitter<{type: string, items: any[]}>();
+  @Output() updateItemsEvent = new EventEmitter<{type: string, items: any[]}>();
   @Input() allItems?: any[];
   @Input() items?: any[];
   @Input() type!: string; 
@@ -22,18 +22,17 @@ export class SearchToolComponent {
     this.items?.push(ad);
     this.items = [ ...new Set(this.items) ];
     this.displayAdds = false;
-    this.updateAdsEvent.emit({type: this.type, items: this.items});
+    this.updateItemsEvent.emit({type: this.type, items: this.items});
   }
 
   removeItem(ad: Ad) {
     this.items = this.items!.filter((a) => a.id !== ad.id);
-    this.updateAdsEvent.emit({type: this.type, items: this.items});
+    this.updateItemsEvent.emit({type: this.type, items: this.items});
   }
 
   searchItems(event: Event) {
     this.articleService.searchItems((event.target as HTMLInputElement).value, this.type).subscribe(
      (res: any[]) => {
-      console.log(res);
        this.allItems = res;
     })
    }

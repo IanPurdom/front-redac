@@ -1,6 +1,6 @@
 <div>
   <label for="">{{type === 'ad' ? 'Publicités' : 'Liens articles'}}</label>
-  <input (keydown)="searchItems($event)" (click)="toggleDisplayAllItems()" class="w-100 tiny-input tiny-title" type="text">
+  <input (keyup)="searchItems($event)" (click)="toggleDisplayAllItems()" class="w-100 tiny-input tiny-title" type="text">
   <div [class.hidden]="!displayAdds" class="ads-list">
     <div (click)="addItem(item)" class="ad-list d-flex" *ngFor="let item of allItems">
       <img style="width:43px" [src]="item.image_url" alt="">

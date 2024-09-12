@@ -65,7 +65,7 @@ export class TinyEditorComponent {
     });
   }
   
-  updateAds(foo: {type: string, items: any[]}) {
+  updateItems(foo: {type: string, items: any[]}) {
     if(foo.type==='ad'){
       this.article!.ads = foo.items;
     }else{

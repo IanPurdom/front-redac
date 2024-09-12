@@ -86,11 +86,13 @@ export class ApiService {
     )
   }
 
-  searchArticles(search: string): Observable<any> {
-    console.log(search)
-    return this.http.get<any>(`${this.apiBackoffice}/articles/search?search=${search}`, this.httpOptions()).pipe(
+  searchArticles(search: string, page?: number, status?: string): Observable<any> {
+    const pageParams: string = page ? `${page}` : "";
+    status = status ? status : "published"; 
+    return this.http.get<any>(`${this.apiBackoffice}/articles/search?search=${search}&page=${pageParams}&status=${status}`, this.httpOptions()).pipe(
       map((res: any) => {
-        return res.ads;
+        console.log(res);
+        return res.articles;
       })
     )
   }
@@ -102,8 +104,6 @@ export class ApiService {
       })
     )
   }
-
-
 
   getUser(id: string): Observable<any> {
     return this.http.get<any>(`${this.apiBackoffice}/users/${id}`, this.httpOptions()).pipe(
