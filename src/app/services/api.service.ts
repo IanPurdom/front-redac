@@ -27,10 +27,11 @@ export class ApiService {
     return options;
   }
 
-  getArticles(page?: number, status?: string): Observable<any> {
+  getArticles(page?: number, status?: string, search?: string): Observable<any> {
     page = !page ? 1 : page
     status = !status ? '' : status
-    return this.http.get<any>(`${this.apiBackoffice}/articles?page=${page}&status=${status}`, this.httpOptions()).pipe(
+    search = !search ? '' : search
+    return this.http.get<any>(`${this.apiBackoffice}/articles?page=${page}&status=${status}&search=${search}`, this.httpOptions()).pipe(
       map((res: any) => {
         return res;
       })
@@ -53,8 +54,8 @@ export class ApiService {
     )
   }
 
-  getAds(): Observable<any> {
-    return this.http.get<any>(`${this.apiBackoffice}/ads`, this.httpOptions()).pipe(
+  getAds(search?: string): Observable<any> {
+    return this.http.get<any>(`${this.apiBackoffice}/ads?search=${search}`, this.httpOptions()).pipe(
       map((res: any) => {
         return res.ads;
       })
@@ -63,38 +64,18 @@ export class ApiService {
 
   searchItems(search: string, type: string): Observable<any> {
     if(type==='ad') {
-      return this.searchAds(search).pipe(
+      return this.getAds(search).pipe(
         map((res: any) => {
           return res;
         })
       )
     }else{
-      return this.searchArticles(search).pipe(
+      return this.getArticles(undefined, undefined, search).pipe(
         map((res: any) => {
-          console.log(res);
           return res;
         })
       )
     }
-  }
-
-  searchAds(search: string): Observable<any> {
-    return this.http.get<any>(`${this.apiBackoffice}/ads/search?search=${search}`, this.httpOptions()).pipe(
-      map((res: any) => {
-        return res.ads;
-      })
-    )
-  }
-
-  searchArticles(search: string, page?: number, status?: string): Observable<any> {
-    const pageParams: string = page ? `${page}` : "";
-    status = status ? status : "published"; 
-    return this.http.get<any>(`${this.apiBackoffice}/articles/search?search=${search}&page=${pageParams}&status=${status}`, this.httpOptions()).pipe(
-      map((res: any) => {
-        console.log(res);
-        return res.articles;
-      })
-    )
   }
 
   getUsers(): Observable<any> {

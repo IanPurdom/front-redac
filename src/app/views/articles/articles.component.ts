@@ -2,8 +2,6 @@ import { Component } from "@angular/core";
 import { ArticleService } from "../../services/article.service";
 import { Article } from "../../models/article";
 import moment from 'moment';
-import { Observable } from "rxjs";
-import { map } from "rxjs";
 
 @Component({
   selector: 'app-articles',
@@ -21,21 +19,12 @@ export class ArticlesComponent {
     this.getArticles();
   }
 
-  getArticles(page?: number, status?: string) {
-    this.status = status;
-    this.articleService.getArticles(page, this.status).subscribe({
+  getArticles(search?: string) {
+    this.articleService.getArticles(this.page, this.status, search).subscribe({
       next: (res: Article[]) => {
-        this.page = page ? page : 1
         this.articles = res;
       },
       error: (err: Error) => console.log('error front articles:', err)
-    })
-  }
-
-  searchArticles(search: string){
-    this.page = 1;
-    this.articleService.searchArticles(search, this.page, this.status).subscribe((res: Article[]) => {
-      this.articles = res;
     })
   }
 
@@ -50,5 +39,13 @@ export class ArticlesComponent {
     }
 
     return translation[status!];
+  }
+
+  getClassColor(status: string): string {
+    const color: any =  { 'published': 'btn-success btn', 
+                          'pending': 'btn-danger btn',
+                          'draft': 'btn-primary btn' }
+      
+    return color[status]
   }
 }
