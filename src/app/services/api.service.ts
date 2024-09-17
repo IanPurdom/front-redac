@@ -103,4 +103,23 @@ export class ApiService {
       })
     )
   }
+
+  getComments(page?: number, status?: string, search?: string): Observable<any> {
+    page = !page ? 1 : page
+    status = !status ? '' : status
+    search = !search ? '' : search
+    return this.http.get<any>(`${this.apiBackoffice}/comments?page=${page}&status=${status}&search=${search}`, this.httpOptions()).pipe(
+      map((res: any) => {
+        return res.comments;
+      })
+    )
+  }
+
+  updateComment(status: string, id: string): Observable<any> {
+    return this.http.put<any>(`${this.apiBackoffice}/comments/${id}`, { status: status, id: id }, this.httpOptions()).pipe(
+      map((res: any) => {
+        return res;
+      })
+    )
+  }
 }

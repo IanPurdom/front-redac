@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav *ngIf="isAuthenticated" class="navbar navbar-expand-lg navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -12,6 +12,11 @@
           <a routerLink="/articles/new" ngbDropdownItem>Nouveau</a>
           <a routerLink="/articles"ngbDropdownItem>Liste</a>
         </div>
+      </li>
+      <li class="nav-item" ngbDropdown>
+        <a routerLink="/comments" style="cursor: pointer;" class="nav-link" id="dropdownBasic1">
+          Commentaires
+        </a>
       </li>
       <li class="nav-item" ngbDropdown>
         <div style="cursor: pointer;" class="nav-link dropdown-toggle" id="dropdownBasic1" ngbDropdownToggle>

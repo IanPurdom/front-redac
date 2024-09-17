@@ -8,12 +8,14 @@ import { UsersComponent } from './views/users/users.component';
 import { UserUpdateComponent } from './views/users/user-update/user-update.component';
 import { ResetPwComponent } from './auth/reset-pw/reset-pw.component';
 import { ArticleShowComponent } from './views/articles/article-show/article-show.component';
+import { CommentsComponent } from './views/comments/comments.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/auth', pathMatch: 'full'},
   { path: 'articles', component: ArticlesComponent },
   { path: 'articles/new', component: ArticleCreateComponent},
   { path: 'articles/:id', component: ArticleShowComponent },
+  { path: 'comments', component: CommentsComponent },
   { path: 'users', component: UsersComponent},
   { path: 'users/:id/update', component: UserUpdateComponent},
   { path: 'auth', component: AuthComponent },

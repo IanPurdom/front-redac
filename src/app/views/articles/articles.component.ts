@@ -9,9 +9,9 @@ import moment from 'moment';
 })
 
 export class ArticlesComponent {
-  public articles?: Article[];
-  public page: number = 1;
-  public status?: string;
+  articles?: Article[];
+  page: number = 1;
+  status?: string;
   
   constructor(
     private articleService: ArticleService 

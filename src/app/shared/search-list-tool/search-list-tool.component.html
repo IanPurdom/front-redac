@@ -8,7 +8,8 @@
         <option selected value="">Tous les articles</option>
         <option value="published">Publié</option>
         <option value="pending">En attente</option>
-        <option value="draft">En cours</option>
+        <option *ngIf="type==='article'" value="draft">En cours</option>
+        <option *ngIf="type==='comment'" value="refused">Refusé</option>
       </select>
     </div>
 	</div>
