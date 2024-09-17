@@ -19,8 +19,9 @@ export class ArticlesComponent {
     this.getArticles();
   }
 
-  getArticles(search?: string) {
-    this.articleService.getArticles(this.page, this.status, search).subscribe({
+  getArticles(foo?: { search?: string, status: string }) {
+    this.status = foo?.status;
+    this.articleService.getArticles(this.page, this.status, foo?.search).subscribe({
       next: (res: Article[]) => {
         this.articles = res;
       },
@@ -42,9 +43,9 @@ export class ArticlesComponent {
   }
 
   getClassColor(status: string): string {
-    const color: any =  { 'published': 'btn-success btn', 
-                          'pending': 'btn-danger btn',
-                          'draft': 'btn-primary btn' }
+    const color: any =  { 'published': 'btn-primary btn', 
+                          'pending': 'btn-warning btn',
+                          'draft': 'btn-secondary btn' }
       
     return color[status]
   }

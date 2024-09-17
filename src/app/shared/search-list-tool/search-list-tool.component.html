@@ -1,11 +1,11 @@
-<div class="form" style="padding:1em;">
+<div class="form" style="padding:1em;" [formGroup]="searchForm">
 	<div class="row">
     <div class="col">
-      <input (keyup)="searchItems($event)" type="text" class="form-control" placeholder="Recherche...">
+      <input type="text" class="form-control" placeholder="Recherche..." formControlName="search">
     </div>
     <div class="col-md-2">
-      <select class="form-control" aria-label="Default select example">  
-        <option selected value="all">Tous les articles</option>
+      <select class="form-control" aria-label="Default select example" formControlName="status">  
+        <option selected value="">Tous les articles</option>
         <option value="published">Publié</option>
         <option value="pending">En attente</option>
         <option value="draft">En cours</option>
@@ -13,4 +13,3 @@
     </div>
 	</div>
 </div>
-<!-- <select class="w-25 form-select" aria-label="Default select example" (change)="getArticles(1, $any($event.target).value)"> -->

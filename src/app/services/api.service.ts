@@ -55,6 +55,7 @@ export class ApiService {
   }
 
   getAds(search?: string): Observable<any> {
+    search = search ? search : "";
     return this.http.get<any>(`${this.apiBackoffice}/ads?search=${search}`, this.httpOptions()).pipe(
       map((res: any) => {
         return res.ads;
