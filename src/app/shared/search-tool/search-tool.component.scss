@@ -19,31 +19,54 @@
   background-color: lightgray;
 }
 
-.ad {
+.item {
   border: solid 1px lightgray;
   border-radius: 7px;
-  padding: 2em 4em 2em 0;
   background-color: whitesmoke;
-  gap: 0.5em;
+}
+
+.tag{
+  gap: .5em;
   align-items: center;
+
+  .close-tag {
+    font-size: x-large;
+    color: gray;
+    font-size: 1.2em;
+  }
+}
+
+.ad {
   position: relative;
-
-  .image{
-    width: 104px;
-  }
-
-  .text{
-    font-size: larger;
-    text-decoration: none;
-  }
-
-  .close {
+  padding: 2em 4em 2em 0;
+  gap: 0.5em;
+  
+  .close-ad {
+    font-size: x-large;
+    color: gray;
+    font-size: 1.2em;
     position: absolute;
     top: .1em;
     right: .7em;
-    font-size: x-large;
-    color: gray
   }
+  // align-items: center;
+}
+
+.image{
+  width: 104px;
+}
+
+.text{
+  font-size: larger;
+  text-decoration: none;
+}
+
+.close {
+  position: absolute;
+  top: .1em;
+  right: .7em;
+  font-size: x-large;
+  color: gray
 }
 
 .tiny-input {

@@ -1,23 +1,25 @@
-<table class="table table-striped table-hover align-middle">
-	<thead>
-		<tr>
-			<th scope="col">Courriel</th>
-			<th scope="col">Rôle</th>
-			<th scope="col">Statut</th>
-			<th scope="col">Date de création</th>
-			<th scope="col"></th>
-		</tr>
-	</thead>
-	<tbody *ngFor="let user of users" class="table-group-divider">
+<div class="container">
+	<table class="table table-striped table-hover align-middle">
+		<thead>
 			<tr>
-				<th [routerLink]="[user.id, 'update']">{{ user.email }}</th>
-				<th [routerLink]="[user.id, 'update']">{{ translateRole(user.role) }}</th>
-				<th [routerLink]="[user.id, 'update']">{{ translateStatus(user.status) }}</th>
-				<td [routerLink]="[user.id, 'update']">{{ dateFormat(user.createdAt) }}</td>
-				<th>
-					<button (click)="toggleStatus(user)" *ngIf="user.status === 'active'" class="btn btn-danger">Désactiver</button>
-					<button (click)="toggleStatus(user)" *ngIf="user.status === 'inactive'" class="btn btn-primary">Activer</button>
-				</th>
+				<th scope="col">Courriel</th>
+				<th scope="col">Rôle</th>
+				<th scope="col">Statut</th>
+				<th scope="col">Date de création</th>
+				<th scope="col"></th>
 			</tr>
-	</tbody>
-</table>
+		</thead>
+		<tbody *ngFor="let user of users" class="table-group-divider">
+				<tr>
+					<th [routerLink]="[user.id, 'update']">{{ user.email }}</th>
+					<th [routerLink]="[user.id, 'update']">{{ translateRole(user.role) }}</th>
+					<th [routerLink]="[user.id, 'update']">{{ translateStatus(user.status) }}</th>
+					<td [routerLink]="[user.id, 'update']">{{ dateFormat(user.createdAt) }}</td>
+					<th>
+						<button (click)="toggleStatus(user)" *ngIf="user.status === 'active'" class="btn btn-danger">Désactiver</button>
+						<button (click)="toggleStatus(user)" *ngIf="user.status === 'inactive'" class="btn btn-primary">Activer</button>
+					</th>
+				</tr>
+		</tbody>
+	</table>
+</div>

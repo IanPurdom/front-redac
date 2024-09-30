@@ -23,6 +23,7 @@ import { TinyEditorComponent } from './shared/tiny-editor/tiny-editor.component'
 import { SearchToolComponent } from './shared/search-tool/search-tool.component';
 import { SearchListToolComponent } from './shared/search-list-tool/search-list-tool.component';
 import { CommentsComponent } from './views/comments/comments.component';
+import { PaginationComponent } from './shared/pagination/pagination.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +40,8 @@ import { CommentsComponent } from './views/comments/comments.component';
     TinyEditorComponent,
     SearchToolComponent,
     SearchListToolComponent,
-    CommentsComponent
+    CommentsComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,

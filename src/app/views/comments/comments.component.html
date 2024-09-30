@@ -1,36 +1,39 @@
-<app-search-list-tool [type]="'comment'" (searchItemsEvent)="getComments($event)"></app-search-list-tool>
-<table class="table table-striped table-hover align-middle table-bordered">
-	<thead>
-		<tr>
-			<th style="width:15%" scope="col">Articles</th>
-      <th scope="col">Status</th>
-      <th scope="col">Auteurs</th>
-      <th scope="col">Commentaires</th>
-			<th scope="col">Date création</th>
-			<th scope="col">Date validation</th>
-      <th scope="col">Actions</th>
-		</tr>
-	</thead>
-	<tbody class="table-group-divider">
-    @for (comment of comments; track comment) {
+<div class="container">
+  <app-search-list-tool [type]="'comment'" (searchItemsEvent)="getComments($event)"></app-search-list-tool>
+  <table class="table table-striped table-hover align-middle table-bordered">
+    <thead>
       <tr>
-				<td class="d-flex flex-column">
-          <img style="width:100%;height:7em;" [src]="comment.image_url" alt="">
-          <div [innerHTML]="comment.article_title"></div>
-        </td>
-        <th><button type="button" [ngClass]="getClassColor(comment?.status!)">{{statusTranslated(comment?.status)}}</button></th>
-        <td [routerLink]="[comment?.id]">{{ comment?.author }}</td>
-        <td [routerLink]="[comment?.id]" [innerHTML]="comment?.text"></td>
-				<td [routerLink]="[comment?.id]"> {{ dateFormat(comment?.date) }}</td>
-        <td [routerLink]="[comment?.id]"></td>
-        <td>
-          <div>
-            <button (click)="updateStatus('pending', comment.id)" *ngIf="comment.status!=='pending'" class="btn-secondary btn" style="width:6.3em;margin:1.6em 0 1.6em 0;">Suspendre</button>
-            <button (click)="updateStatus('published', comment.id)" *ngIf="comment.status!=='published'" class="btn-primary btn" style="width:6.3em;margin:1.6em 0 1.6em 0;">Publier</button>
-            <button (click)="updateStatus('refused', comment.id)" *ngIf="comment.status!=='refused'" class="btn-danger btn" style="width:6.3em;margin:1.6em 0 1.6em 0;">Refuser</button>
-          </div>
-        </td>
-			</tr>
-    }
-	</tbody>
-</table>
+        <th style="width:15%" scope="col">Articles</th>
+        <th scope="col">Status</th>
+        <th scope="col">Auteurs</th>
+        <th scope="col">Commentaires</th>
+        <th scope="col">Date création</th>
+        <th scope="col">Date validation</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      @for (comment of comments; track comment) {
+        <tr style="vertical-align: top;">
+          <td class="d-flex flex-column">
+            <img style="width:100%;height:7em;" [src]="comment.image_url" alt="">
+            <div [innerHTML]="comment.article_title"></div>
+          </td>
+          <th><button type="button" [ngClass]="getClassColor(comment?.status!)">{{statusTranslated(comment?.status)}}</button></th>
+          <td [routerLink]="[comment?.id]" [innerHTML]="comment?.author"></td>
+          <td [routerLink]="[comment?.id]" [innerHTML]="comment?.text"></td>
+          <td [routerLink]="[comment?.id]"> {{ dateFormat(comment?.date) }}</td>
+          <td [routerLink]="[comment?.id]"></td>
+          <td>
+            <div>
+              <button (click)="updateStatus('pending', comment.id)" *ngIf="comment.status!=='pending'" class="btn-secondary btn" style="width:6.3em;margin:1.6em 0 1.6em 0;">Suspendre</button>
+              <button (click)="updateStatus('published', comment.id)" *ngIf="comment.status!=='published'" class="btn-primary btn" style="width:6.3em;margin:1.6em 0 1.6em 0;">Publier</button>
+              <button (click)="updateStatus('refused', comment.id)" *ngIf="comment.status!=='refused'" class="btn-danger btn" style="width:6.3em;margin:1.6em 0 1.6em 0;">Refuser</button>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <app-pagination [currentPage]="currentPage"  [totalPages]="totalPages" (NextPageEvent)="loadNextPage($event)"></app-pagination>
+</div>

@@ -25,9 +25,9 @@ export class ArticleService {
     if (sessionArticle) this.article$.next(sessionArticle)
   }
 
-  getArticles(page?: number, status?: string, search?: string): Observable<Article[]> {
+  getArticles(page?: number, status?: string, search?: string): Observable<any> {
     return this.apiService.getArticles(page, status, search).pipe(
-      map((res: Article[]) => {
+      map((res: any) => {
         return res;
     }))
   }
@@ -51,6 +51,14 @@ export class ArticleService {
   getAds(): Observable<Ad[]> {
     return this.apiService.getAds().pipe(
       map((res: Ad[]) => {
+        return res;
+      })
+    )
+  }
+
+  getTags(): Observable<any> {
+    return this.apiService.getTags().pipe(
+      map((res: any) => {
         return res;
       })
     )

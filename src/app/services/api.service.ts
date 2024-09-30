@@ -16,22 +16,12 @@ export class ApiService {
     private http: HttpClient,
   ){}
 
-  private httpOptions(): any {
-    let options: { headers?: HttpHeaders, params?: HttpParams } = {};
-
-      options['headers'] = new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      });
-
-    return options;
-  }
 
   getArticles(page?: number, status?: string, search?: string): Observable<any> {
     page = !page ? 1 : page
     status = !status ? '' : status
     search = !search ? '' : search
-    return this.http.get<any>(`${this.apiBackoffice}/articles?page=${page}&status=${status}&search=${search}`, this.httpOptions()).pipe(
+    return this.http.get<any>(`${this.apiBackoffice}/articles?page=${page}&status=${status}&search=${search}`).pipe(
       map((res: any) => {
         return res;
       })
@@ -47,7 +37,7 @@ export class ApiService {
   }
 
   createArticle(article: Article): Observable<any> {
-    return this.http.post<any>(`${this.apiBackoffice}/articles`, { article: article } ,this.httpOptions()).pipe(
+    return this.http.post<any>(`${this.apiBackoffice}/articles`, { article: article }).pipe(
       map((res: any) => {
         return res;
       })
@@ -56,9 +46,17 @@ export class ApiService {
 
   getAds(search?: string): Observable<any> {
     search = search ? search : "";
-    return this.http.get<any>(`${this.apiBackoffice}/ads?search=${search}`, this.httpOptions()).pipe(
+    return this.http.get<any>(`${this.apiBackoffice}/ads?search=${search}`).pipe(
       map((res: any) => {
         return res.ads;
+      })
+    )
+  }
+
+  getTags(): Observable<any> {
+    return this.http.get<any>(`${this.apiBackoffice}/articles/tags`).pipe(
+      map((res: any) => {
+        return res;
       })
     )
   }
@@ -70,9 +68,15 @@ export class ApiService {
           return res;
         })
       )
-    }else{
+    }else if (type=='article'){
       return this.getArticles(undefined, undefined, search).pipe(
         map((res: any) => {
+          return res;
+        })
+      )
+    }else {
+      return this.getTags().pipe(
+        map((res: string[]) => {
           return res;
         })
       )
@@ -80,7 +84,7 @@ export class ApiService {
   }
 
   getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.apiBackoffice}/users`, this.httpOptions()).pipe(
+    return this.http.get<any>(`${this.apiBackoffice}/users`).pipe(
       map((res: any) => {
         return res.users;
       })
@@ -88,7 +92,7 @@ export class ApiService {
   }
 
   getUser(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiBackoffice}/users/${id}`, this.httpOptions()).pipe(
+    return this.http.get<any>(`${this.apiBackoffice}/users/${id}`).pipe(
       map((res: any) => {
         return res;
       })
@@ -97,7 +101,7 @@ export class ApiService {
 
   updateUser(user: User): Observable<any> {
     const boUser: any = { backoffice_user: user }
-    return this.http.put<any>(`${this.apiBackoffice}/users/${user.id}`, boUser, this.httpOptions()).pipe(
+    return this.http.put<any>(`${this.apiBackoffice}/users/${user.id}`, boUser).pipe(
       map((res: any) => {
         return res;
       })
@@ -108,15 +112,15 @@ export class ApiService {
     page = !page ? 1 : page
     status = !status ? '' : status
     search = !search ? '' : search
-    return this.http.get<any>(`${this.apiBackoffice}/comments?page=${page}&status=${status}&search=${search}`, this.httpOptions()).pipe(
+    return this.http.get<any>(`${this.apiBackoffice}/comments?page=${page}&status=${status}&search=${search}`).pipe(
       map((res: any) => {
-        return res.comments;
+        return res;
       })
     )
   }
 
   updateComment(status: string, id: string): Observable<any> {
-    return this.http.put<any>(`${this.apiBackoffice}/comments/${id}`, { status: status, id: id }, this.httpOptions()).pipe(
+    return this.http.put<any>(`${this.apiBackoffice}/comments/${id}`, { status: status, id: id }).pipe(
       map((res: any) => {
         return res;
       })

@@ -13,9 +13,9 @@ export class CommentService {
   ) {}
 
 
-  getComments(page?: number, status?: string, search?: string): Observable<Comment[]> {
+  getComments(page?: number, status?: string, search?: string): Observable<any> {
     return this.apiService.getComments(page, status, search).pipe(
-      map((res: Comment[]) => {
+      map((res: any) => {
         return res;
       })
     )

@@ -32,6 +32,7 @@
     <label for="">Chapeau:</label>
     <textarea  formControlName="chapeau" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
+  <app-search-tool [type]="'tag'" [items]="article.tags" [allItems]="allTags" (updateItemsEvent)="updateItems($event)"></app-search-tool>
   <editor 
     formControlName="text"
     [init]="{   

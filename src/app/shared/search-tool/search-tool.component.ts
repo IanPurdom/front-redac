@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, input, Output } from '@angular/core';
 import { ArticleService } from '../../services/article.service';
-import { Ad } from '../../models/ad';
 
 @Component({
   selector: 'app-search-tool',
@@ -10,23 +9,24 @@ import { Ad } from '../../models/ad';
 export class SearchToolComponent {
   displayAdds: Boolean = false;
   @Output() updateItemsEvent = new EventEmitter<{type: string, items: any[]}>();
-  @Input() allItems?: any[];
-  @Input() items?: any[];
+  @Input() allItems?:any;
+  @Input() items?: any[] = [];
   @Input() type!: string; 
+  typesName: any = {'ad': 'Publicités', 'article': 'Liens articles', 'tag': 'Tags'}
 
   constructor(
     private articleService: ArticleService
   ){}
 
-  addItem(ad: Ad) {
-    this.items?.push(ad);
+  addItem(item: any) {
+    this.items?.push(item);
     this.items = [ ...new Set(this.items) ];
     this.displayAdds = false;
     this.updateItemsEvent.emit({type: this.type, items: this.items});
   }
 
-  removeItem(ad: Ad) {
-    this.items = this.items!.filter((a) => a.id !== ad.id);
+  removeItem(item: any) {
+    this.items = this.items!.filter((i) => i.id !== item.id);
     this.updateItemsEvent.emit({type: this.type, items: this.items});
   }
 

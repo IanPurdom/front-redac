@@ -11,7 +11,8 @@ import { Comment } from '../../models/comment';
 export class CommentsComponent {
   comments?: Comment[];
   status?: string;
-  page: number = 1;
+  currentPage: number = 1;
+  totalPages?: number;
 
   constructor(
     private commentService: CommentService
@@ -21,8 +22,9 @@ export class CommentsComponent {
 
   getComments(foo?: { search?: string, status: string }) {
     this.status = foo?.status;
-    this.commentService.getComments(this.page, this.status, foo?.search).subscribe((res: Comment[]) => {
-      this.comments = res;
+    this.commentService.getComments(this.currentPage, this.status, foo?.search).subscribe((res: any) => {
+      this.comments = res.comments;
+      this.totalPages = res.totalPages;
     })
   }
 
@@ -55,5 +57,10 @@ export class CommentsComponent {
           c.status = res.status;
       })
     })
+  }
+
+  loadNextPage(nextPage: number) {
+    this.currentPage = nextPage;
+    this.getComments();
   }
 }

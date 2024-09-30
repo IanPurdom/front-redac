@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { Article } from '../../models/article';
 import { FormBuilder, Validators, FormGroup} from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
-import { Ad } from '../../models/ad';
 import { take } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user';
+import { Ad } from '../../models/ad';
 
 @Component({
   selector: 'app-tiny-editor',
@@ -14,10 +14,11 @@ import { User } from '../../models/user';
   styleUrl: './tiny-editor.component.scss',
 })    
 export class TinyEditorComponent {
-  allAds?: any[];
+  allAds?: Ad[];
+  allArticles?: Article[];
+  allTags?: any;
   displayAdds: Boolean = false;
   articleForm: FormGroup;
-  allArticles?: Article[];
   article: Article = {title: "",
                       subtitle: "",
                       chapeau: "",
@@ -38,14 +39,6 @@ export class TinyEditorComponent {
       text: ['', [Validators.required, Validators.minLength(10)]]
     })
 
-    this.articleService.getAds().subscribe((res: Ad[]) => {
-      this.allAds = res;
-    })
-
-    this.articleService.getArticles().subscribe((res: Article[]) => {
-      this.allArticles = res;
-    })
-
     this.articleService.article$.pipe(
       take(1)).subscribe((res: Article) => {
       this.article = res;
@@ -56,6 +49,19 @@ export class TinyEditorComponent {
 
     this.authService.user$.subscribe((res: User | null) => {
       this.user = res;
+    })
+
+    this.articleService.getAds().subscribe((res: Ad[]) => {
+      this.allAds = res;
+    })
+
+    this.articleService.getArticles().subscribe((res: Article[]) => {
+      this.allArticles = res;
+    })
+
+    this.articleService.getTags().subscribe((res: string[]) => {
+      this.allTags = res;
+      console.log(this.allTags);
     })
   }
 
@@ -68,8 +74,10 @@ export class TinyEditorComponent {
   updateItems(foo: {type: string, items: any[]}) {
     if(foo.type==='ad'){
       this.article!.ads = foo.items;
-    }else{
+    }else if(foo.type==='article'){
       this.article!.links = foo.items;
+    }else{
+      this.article.tags = foo.items;
     }
     this.articleService.article$.next(this.article!);
   }

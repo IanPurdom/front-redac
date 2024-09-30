@@ -10,7 +10,8 @@ import moment from 'moment';
 
 export class ArticlesComponent {
   articles?: Article[];
-  page: number = 1;
+  currentPage: number = 1;
+  totalPages?: number;
   status?: string;
   
   constructor(
@@ -21,9 +22,10 @@ export class ArticlesComponent {
 
   getArticles(foo?: { search?: string, status: string }) {
     this.status = foo?.status;
-    this.articleService.getArticles(this.page, this.status, foo?.search).subscribe({
-      next: (res: Article[]) => {
-        this.articles = res;
+    this.articleService.getArticles(this.currentPage, this.status, foo?.search).subscribe({
+      next: (res: any) => {
+        this.articles = res.articles;
+        this.totalPages = res.totalPages;
       },
       error: (err: Error) => console.log('error front articles:', err)
     })
@@ -38,8 +40,12 @@ export class ArticlesComponent {
       'published': 'Publié',
       'draft': 'En cours'
     }
-
     return translation[status!];
+  }
+
+  loadNextPage(nextPage: number) {
+    this.currentPage = nextPage;
+    this.getArticles();
   }
 
   getClassColor(status: string): string {

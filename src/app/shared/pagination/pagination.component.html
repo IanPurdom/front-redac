@@ -1,0 +1,13 @@
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" (click)="changePage(currentPage!-1)" [class.disabled]="currentPage===1"><div class="page-link">Précédent</div></li>
+    <li *ngIf="currentPage!>3" class="page-item"><div class="page-link">{{currentPage!-3}}</div></li>
+    <li *ngIf="currentPage!>2" class="page-item"><div class="page-link">{{currentPage!-2}}</div></li>
+    <li *ngIf="currentPage!>1" class="page-item"><div class="page-link">{{currentPage!-1}}</div></li>
+    <li class="page-item active"><div class="page-link">{{currentPage}}</div></li>
+    <li *ngIf="currentPage!<totalPages!" class="page-item" (click)="changePage(currentPage!+1)"><div class="page-link">{{currentPage!+1}}</div></li>
+    <li *ngIf="currentPage!+1<totalPages!" class="page-item" (click)="changePage(currentPage!+2)"><div class="page-link">{{currentPage!+2}}</div></li>
+    <li *ngIf="currentPage!+2<totalPages!" class="page-item" (click)="changePage(currentPage!+3)"><div class="page-link">{{currentPage!+3}}</div></li>
+    <li class="page-item" (click)="changePage(currentPage!+1)" [class.disabled]="currentPage===totalPages"><div class="page-link">Suivant</div></li>
+  </ul>
+</nav>

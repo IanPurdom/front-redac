@@ -1,19 +1,32 @@
 <div>
-  <label for="">{{type === 'ad' ? 'Publicités' : 'Liens articles'}}</label>
+  <label for="">{{typesName[type]}}</label>
   <input (keyup)="searchItems($event)" (click)="toggleDisplayAllItems()" class="w-100 tiny-input tiny-title" type="text">
   <div [class.hidden]="!displayAdds" class="ads-list">
     <div (click)="addItem(item)" class="ad-list d-flex" *ngFor="let item of allItems">
-      <img style="width:43px" [src]="item.image_url" alt="">
-      <p [innerHTML]="item.title"></p>
+      @if(type==='tag') {
+       <div>{{item.tag}}</div>
+      }
+      @if(type!=='tag') {
+        <img style="width:43px" [src]="item.image_url" alt="">
+        <p [innerHTML]="item.title"></p>
+      }
     </div>  
   </div>
 </div>
 <br>
-<div *ngIf="items!.length > 0">{{type === 'ad' ? 'Publicités' : 'Liens articles'}} ajoutés:</div>
+<div *ngIf="items?.length">{{typesName[type]}} ajoutés:</div>
 <div class="d-flex flex-wrap ads-box">
-  <div *ngFor="let item of items" class="ad d-flex" >
-    <img class="image" [src]="item.image_url" alt="">
-    <a [href]="item.url" class="text" [innerHTML]="item.title"></a>
-    <div class="close" (click)="removeItem(item)">X</div>
-  </div>
+    @if(type==='tag'){
+      <div *ngFor="let item of items" class="tag item d-flex" >
+        <div>{{item.tag}}</div>
+        <div class="close-tag" (click)="removeItem(item)">X</div>
+      </div>
+    }
+    @if(type!=='tag'){
+      <div *ngFor="let item of items" class="ad item d-flex" >
+        <img class="image" [src]="item.image_url" alt="">
+        <a [href]="item.url" class="text" [innerHTML]="item.title"></a>
+        <div class="close-ad" (click)="removeItem(item)">X</div>
+      </div>
+    }
 </div>
