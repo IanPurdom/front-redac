@@ -21,8 +21,16 @@ export class CommentService {
     )
   }
 
-  updateComment(status: string, id: string): Observable<any> {
-    return this.apiService.updateComment(status, id).pipe(
+  getComment(commentId: string): Observable<Comment> {
+    return this.apiService.getComment(commentId).pipe(
+      map((res: Comment) => {
+        return res;
+      })
+    )
+  }
+
+  updateComment(status: string, id: string, userId: string): Observable<any> {
+    return this.apiService.updateComment(status, id, userId).pipe(
       map((res: any) => {
         return res;
       })

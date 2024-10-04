@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <div class="card p-4">
+    <div class="card-title">
+      <div style="font-weight:600;font-size:2em;" [class]="colorStatus(comment?.status)">{{statusTranslated(comment?.status)}}</div>
+    </div>
+    <div style="font-style:italic" class="d-flex justify-content-between">
+      <div>{{comment?.author}}</div>
+      <div>Le {{dateFormat(comment?.date)}}</div>
+    </div>
+    <div class="card-body">
+      <div [innerHTML]="comment?.text"></div>
+    </div>
+    <div style="gap:1em" class="d-flex justify-content-end" >
+      <button (click)="updateStatus('pending', comment!.id)" *ngIf="comment?.status!=='pending'" class="btn-secondary btn">Suspendre</button>
+      <button (click)="updateStatus('published', comment!.id)" *ngIf="comment?.status!=='published'" class="btn-primary btn">Publier</button>
+      <button (click)="updateStatus('refused', comment!.id)" *ngIf="comment?.status!=='refused'" class="btn-danger btn">Refuser</button>
+    </div>
+  </div>
+
+  <div *ngIf="comment?.answers?.length" class="mt-5 ms-5">
+    <h3>Réponses:</h3>
+    <br>
+    @for(answer of comment!.answers; track answer) {
+      <div class="card p-4 mt-2">
+        <div [routerLink]="['/comments', answer.id]">
+          <div class="card-title">
+            <div style="font-weight:600;font-size:2em;" [class]="colorStatus(answer?.status)">{{statusTranslated(answer?.status)}}</div>
+          </div>
+          <div style="font-style:italic" class="d-flex justify-content-between">
+            <div>{{answer?.author}}</div>
+            <div>Le {{dateFormat(answer?.date)}}</div>
+          </div>
+          <div class="card-body">
+            <div [innerHTML]="answer?.text"></div>
+          </div>
+        </div>
+        <div style="gap:1em" class="d-flex justify-content-end" >
+          <button [disabled]="comment!.status !== 'published'" (click)="updateStatus('pending', answer!.id, true)" *ngIf="answer?.status!=='pending'" class="btn-secondary btn">Suspendre</button>
+          <button [disabled]="comment!.status !== 'published'"(click)="updateStatus('published', answer!.id, true)" *ngIf="answer?.status!=='published'" class="btn-primary btn">Publier</button>
+          <button [disabled]="comment!.status !== 'published'"(click)="updateStatus('refused', answer!.id, true)" *ngIf="answer?.status!=='refused'" class="btn-danger btn">Refuser</button>
+        </div>
+      </div>
+    }
+  </div>
+  
+  <div class="mt-5" *ngIf="audits?.length">
+    <h3>Audit:</h3>
+    <br>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Courriel</th>
+        <th>Action</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (audit of audits; track audit) {
+        <tr>
+          <td>{{audit.userEmail}}</td>
+          <td>{{statusTranslated(audit.action)}}</td>
+          <td>Le {{dateFormat(audit.date)}}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  </div>
+</div>

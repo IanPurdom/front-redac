@@ -119,8 +119,16 @@ export class ApiService {
     )
   }
 
-  updateComment(status: string, id: string): Observable<any> {
-    return this.http.put<any>(`${this.apiBackoffice}/comments/${id}`, { status: status, id: id }).pipe(
+  getComment(commentId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiBackoffice}/comments/${commentId}`).pipe(
+      map((res: any) => {
+        return res;
+      })
+    )
+  }
+
+  updateComment(status: string, id: string, userId: string): Observable<any> {
+    return this.http.put<any>(`${this.apiBackoffice}/comments/${id}`, { status: status, id: id, user_id: userId }).pipe(
       map((res: any) => {
         return res;
       })

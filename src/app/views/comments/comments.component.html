@@ -7,6 +7,7 @@
         <th scope="col">Status</th>
         <th scope="col">Auteurs</th>
         <th scope="col">Commentaires</th>
+        <th scope="col">Réponse</th>
         <th scope="col">Date création</th>
         <th scope="col">Date validation</th>
         <th scope="col">Actions</th>
@@ -19,9 +20,10 @@
             <img style="width:100%;height:7em;" [src]="comment.image_url" alt="">
             <div [innerHTML]="comment.article_title"></div>
           </td>
-          <th><button type="button" [ngClass]="getClassColor(comment?.status!)">{{statusTranslated(comment?.status)}}</button></th>
+          <td><button type="button" [ngClass]="getClassColor(comment?.status!)">{{statusTranslated(comment?.status)}}</button></td>
           <td [routerLink]="[comment?.id]" [innerHTML]="comment?.author"></td>
           <td [routerLink]="[comment?.id]" [innerHTML]="comment?.text"></td>
+          <td (click)="goTo(comment.parent_id)" [innerHTML]="comment.parent_id"></td>
           <td [routerLink]="[comment?.id]"> {{ dateFormat(comment?.date) }}</td>
           <td [routerLink]="[comment?.id]"></td>
           <td>

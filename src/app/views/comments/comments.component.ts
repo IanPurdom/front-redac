@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { CommentService } from '../../services/comment.service';
 import moment from 'moment';
 import { Comment } from '../../models/comment';
+import { AuthService } from '../../services/auth.service';
+import { User } from '../../models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comments',
@@ -13,10 +16,21 @@ export class CommentsComponent {
   status?: string;
   currentPage: number = 1;
   totalPages?: number;
+  user!: User | null;
 
   constructor(
-    private commentService: CommentService
+    private authService: AuthService,
+    private commentService: CommentService,
+    private router: Router
   ){
+
+    this.authService.user$.subscribe((res: User | null) => {
+      if(res){
+        return this.user = res;
+      }else{
+        return undefined
+      }
+    })
     this.getComments();
   }
 
@@ -51,7 +65,7 @@ export class CommentsComponent {
   }
 
   updateStatus(status: string, id: string) {
-    this.commentService.updateComment(status, id).subscribe((res: any) => {
+    this.commentService.updateComment(status, id, this.user!.id).subscribe((res: any) => {
       this.comments?.find((c:Comment) => {
         if(c.id === res.id)
           c.status = res.status;
@@ -62,5 +76,10 @@ export class CommentsComponent {
   loadNextPage(nextPage: number) {
     this.currentPage = nextPage;
     this.getComments();
+  }
+
+  goTo(parentId: string) {
+    console.log(parentId)
+    this.router.navigate(['/comments', parentId])
   }
 }

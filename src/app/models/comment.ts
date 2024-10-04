@@ -1,3 +1,5 @@
+import { Audit } from "./audit";
+
 export interface Comment {
   id: string,
   date: Date, 
@@ -7,6 +9,8 @@ export interface Comment {
   image_url: string,
   article_id: string,
   article_title: string,
-  answers: Comment[]
+  parent_id: string,
+  answers: Comment[],
+  audits: Audit[]
 }
  

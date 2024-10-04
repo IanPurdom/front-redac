@@ -24,6 +24,7 @@ import { SearchToolComponent } from './shared/search-tool/search-tool.component'
 import { SearchListToolComponent } from './shared/search-list-tool/search-list-tool.component';
 import { CommentsComponent } from './views/comments/comments.component';
 import { PaginationComponent } from './shared/pagination/pagination.component';
+import { CommentShowComponent } from './views/comments/comment-show/comment-show.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { PaginationComponent } from './shared/pagination/pagination.component';
     SearchToolComponent,
     SearchListToolComponent,
     CommentsComponent,
-    PaginationComponent
+    PaginationComponent,
+    CommentShowComponent
   ],
   imports: [
     BrowserModule,
